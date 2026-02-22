@@ -2,7 +2,7 @@
 
 import { Search } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
 const SearchBar = () => {
     const [value, setValue] = useState("")
@@ -43,4 +43,10 @@ const SearchBar = () => {
     )
 }
 
-export default SearchBar
+export default function SearchBarWrapper() {
+    return (
+        <Suspense fallback={null}>
+            <SearchBar />
+        </Suspense>
+    )
+}

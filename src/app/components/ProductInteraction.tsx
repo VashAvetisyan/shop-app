@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { ProductType } from "../types"
 import { Minus, Plus, ShoppingCartIcon } from "lucide-react"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import useCartStore from "../stores/cartStore"
 import { toast } from 'react-toastify'
 
@@ -29,7 +29,7 @@ const ProductInteraction = ({ product, selectedSize, selectedColor }: { product:
 		}
 	}
 	const handleAddtoCart = () => {
-		addToCart({...product, selectedSize, selectedColor, quantity})
+		addToCart({ ...product, selectedSize, selectedColor, quantity })
 		toast.success("Product added to cart!")
 	}
 
@@ -90,4 +90,10 @@ const ProductInteraction = ({ product, selectedSize, selectedColor }: { product:
 	)
 }
 
-export default ProductInteraction
+export default function ProductInteractionWrapper(props: { product: ProductType, selectedSize: string, selectedColor: string }) {
+	return (
+		<Suspense fallback={null}>
+			<ProductInteraction {...props} />
+		</Suspense>
+	)
+}

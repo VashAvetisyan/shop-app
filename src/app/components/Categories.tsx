@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { ShoppingBasket, Shirt, Footprints, Glasses, Briefcase, Venus, Hand } from 'lucide-react'
 import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -77,4 +77,10 @@ const Categories = () => {
 	)
 }
 
-export default Categories
+export default function CategoriesWrapper() {
+    return (
+        <Suspense fallback={null}>
+            <Categories />
+        </Suspense>
+    )
+}

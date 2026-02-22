@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowRight, Trash } from "lucide-react"
 import PaymentForm from "../components/PaymentForm"
@@ -8,7 +9,6 @@ import { useState } from "react"
 import Image from "next/image"
 import { ShippingFormInputs } from "../types"
 import useCartStore from "../stores/cartStore"
-import { productsData } from "@/data/products"
 
 const steps = [
 	{
@@ -116,4 +116,10 @@ const CartPage = () => {
 	)
 }
 
-export default CartPage
+export default function CartPageWrapper() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CartPage />
+        </Suspense>
+    )
+}
