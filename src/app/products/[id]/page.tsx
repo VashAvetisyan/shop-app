@@ -1,38 +1,37 @@
 import ProductInteraction from '@/app/components/ProductInteraction'
-import { ProductType } from '@/app/types'
+import { ProductsType, ProductType } from '@/app/types'
 import Image from 'next/image'
 import React from 'react'
+import { productsData } from "@/data/products";
+import { notFound } from 'next/navigation';
 
-const product: ProductType = {
-	id: 1,
-	name: "Adidas CoreFit T-Shirt",
-	shortDescription:
-		"Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-	description:
-		"Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit. Lorem ipsum dolor sit amet consect adipisicing elit lorem ipsum dolor sit.",
-	price: 39.9,
-	sizes: ["s", "m", "l", "xl", "xxl"],
-	colors: ["gray", "purple", "green"],
-	images: {
-		gray: "/products/1g.png",
-		purple: "/products/1p.png",
-		green: "/products/1gr.png",
-	},
-}
+const products: ProductsType = productsData
 
 export const metadata = async ({ params }: { params: Promise<{ id: string }> }) => {
-	return {
-		title:product.name,
-		description: product.shortDescription,
-	}
-}
+  if (!params) return {};
+  const { id } = await params;
+  const product = products.find((p) => p.id === Number(id));
+  if (!product) return {};
+
+  return {
+    title: product.name,
+    description: product.shortDescription,
+  };
+};
 
 const ProductPage = async ({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ color: string; size: string }> }) => {
 
+
 	const { size, color } = await searchParams
 	const { id } = await params
+	const product = products.find((p) => p.id === Number(id));
+
+	if (!product) return notFound();
+
 	const selectedSize = (size || product.sizes[0]) as string
 	const selectedColor = (color || product.colors[0]) as string
+
+
 
 	return (
 		<div className='flex flex-col gap-4 lg:flex-row md:gap-12 mt-12'>
