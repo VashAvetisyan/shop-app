@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 const products: ProductsType = productsData
 
-export const metadata = async ({ params }: { params: Promise<{ id: string }> }) => {
+export const generateMetadata  = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!params) return {};
   const { id } = await params;
   const product = products.find((p) => p.id === Number(id));
