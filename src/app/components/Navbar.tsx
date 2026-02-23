@@ -13,13 +13,15 @@ const Navbar = () => {
 				<p className='hidden md:block text-md font-medium tracking-wider'>Shop App.</p>
 			</Link>
 			<div className='flex items-center gap-6'>
-				<SearchBar />
+				<div className='flex-1 md:flex-none'>
+					<SearchBar />
+				</div>
 				<Link href="/">
 					<Home className='w-4 h-4 text-gray-600' />
 				</Link>
-				<Bell className='w-4 h-4 text-gray-600' />
+				<Bell className='hidden md:flex w-4 h-4 text-gray-600' />
 				<ShoppingCartIcon />
-				<Link href="/">
+				<Link href="/" className='hidden md:flex'>
 					Sign in
 				</Link>
 			</div>

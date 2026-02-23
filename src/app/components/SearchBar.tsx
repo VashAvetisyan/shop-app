@@ -13,7 +13,7 @@ const SearchBar = () => {
         const query = searchParams.get('query')
         if (query) {
             setValue(query.toString())
-        } else{
+        } else {
             setValue("")
         }
     }, [searchParams])
@@ -31,11 +31,11 @@ const SearchBar = () => {
     }
 
     return (
-        <div className='hidden md:flex items-center gap-2 rounded-md ring-1 ring-gray-200 px-2 py-1 shadow-md'>
-            <Search className='w-4 h-4 text-gray-500 cursor-pointer' onClick={search} />
+        <div className='flex items-center gap-2 rounded-md ring-1 ring-gray-200 px-2 py-1 shadow-md w-full md:w-auto'>
+            <Search className='w-4 h-4 text-gray-500 cursor-pointer shrink-0' onClick={search} />
             <input type="text" id='search'
                 placeholder='Search...'
-                className='text-sm outline-0'
+                className='text-sm outline-0 w-full min-w-0'
                 onChange={handleValue}
                 value={value}
             />
